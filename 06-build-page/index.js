@@ -1,14 +1,7 @@
 const fsPromises = require('fs/promises');
 const path = require('path');
 
-const {
-  mkdir,
-  rm,
-  readdir,
-  copyFile,
-  readFile,
-  writeFile,
-} = fsPromises;
+const { mkdir, rm, readdir, copyFile, readFile, writeFile } = fsPromises;
 const { join, extname } = path;
 
 const options = {

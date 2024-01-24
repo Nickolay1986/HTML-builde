@@ -15,7 +15,12 @@ const readSecretFiles = async () => {
         const fileStat = await fs.stat(filePath);
         const fileSize = Math.ceil(fileStat.size / 1024);
 
-        console.log(`${fileName.replace(fileExt, '')} - ${fileExt.replace('.', '')} - ${fileSize}kb`);
+        console.log(
+          `${fileName.replace(fileExt, '')} - ${fileExt.replace(
+            '.',
+            '',
+          )} - ${fileSize}kb`,
+        );
       }
     }
   } catch (error) {

@@ -24,18 +24,21 @@ const handleInput = async (data) => {
 };
 
 const main = async () => {
-  const fileExists = await fs.access(absolutePath).then(() => true).catch(() => false);
+  const fileExists = await fs
+    .access(absolutePath)
+    .then(() => true)
+    .catch(() => false);
   if (fileExists) {
     await fs.unlink(absolutePath);
   }
-  
+
   try {
     await fs.writeFile(absolutePath, '');
   } catch (error) {
     console.error('Failed to create file:', error);
     process.exit(1);
   }
-  
+
   stdout.write('Hello! Enter the text...\n');
   stdin.setEncoding('utf-8');
   stdin.on('data', handleInput);
