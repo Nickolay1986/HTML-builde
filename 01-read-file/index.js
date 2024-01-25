@@ -1,15 +1,24 @@
-const fs = require('fs').promises;
+const fs = require('fs');
 const path = require('path');
 const { stdout } = require('process');
 
-const readTextFromFile = async (filePath) => {
-  try {
-    const data = await fs.readFile(filePath, 'utf-8');
-    stdout.write(data);
-  } catch (error) {
-    console.error('Failed to read file:', error);
-    process.exit(1);
-  }
+const readTextFromFile = (filePath) => {
+  const readStream = fs.createReadStream(filePath, 'utf-8');
+
+  readStream.on('data', (chunk) => {
+    stdout.write(chunk);
+  });
+
+  return new Promise((resolve, reject) => {
+    readStream.on('end', () => {
+      resolve();
+    });
+
+    readStream.on('error', (error) => {
+      console.error('Failed to read file:', error);
+      reject(error);
+    });
+  });
 };
 
 const main = async () => {
